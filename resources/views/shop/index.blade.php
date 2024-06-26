@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app',['subpage'=>true ,'activePage' => "shop"]) 
 @section('content')
   <!-- brand section -->
 

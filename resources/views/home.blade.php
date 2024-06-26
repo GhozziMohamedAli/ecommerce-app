@@ -1,5 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app',['subpage' => false,'activePage' => "home"])
 @section('content')
+
 <!-- about section -->
 
 <section class="about_section layout_padding">
@@ -24,7 +25,7 @@
         </div>
         <div class="col-md-6">
           <div class="img-box">
-            <img src="images/about-img.png" alt="">
+            <img src="{{url('assets/images/about-img.png ')}}" alt="">
           </div>
         </div>
       </div>
@@ -43,152 +44,56 @@
             <div class="detail-box">
               <div class="heading_container">
                 <h2>
-                  Trending Categories
+                  {{__('Trending Categories')}}
                 </h2>
               </div>
+
               <div class="tab_container">
-                <div class="t-link-box" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+              <div class="d-none">
+                {{$i=1}}
+              </div>  
+                @foreach($category as $cat)
+                  <div class="t-link-box" data-toggle="collapse" data-target="#collapse{{$i}}" aria-expanded="true"
                   aria-controls="collapseOne">
                   <div class="number">
                     <h5>
-                      01
+                      {{$i++}}
                     </h5>
                   </div>
                   <hr>
                   <div class="t-name">
                     <h5>
-                      Chairs
+                      {{$cat->name}}
                     </h5>
                   </div>
                 </div>
-                <div class="t-link-box collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                  aria-expanded="false" aria-controls="collapseTwo">
-                  <div class="number">
-                    <h5>
-                      02
-                    </h5>
-                  </div>
-                  <hr>
-                  <div class="t-name">
-                    <h5>
-                      Tables
-                    </h5>
-                  </div>
-                </div>
-                <div class="t-link-box collapsed" data-toggle="collapse" data-target="#collapseThree"
-                  aria-expanded="false" aria-controls="collapseThree">
-                  <div class="number">
-                    <h5>
-                      03
-                    </h5>
-                  </div>
-                  <hr>
-                  <div class="t-name">
-                    <h5>
-                      Bads
-                    </h5>
-                  </div>
-                </div>
-                <div class="t-link-box collapsed" data-toggle="collapse" data-target="#collapseFour"
-                  aria-expanded="false" aria-controls="collapseFour">
-                  <div class="number">
-                    <h5>
-                      04
-                    </h5>
-                  </div>
-                  <hr>
-                  <div class="t-name">
-                    <h5>
-                      Furnitures
-                    </h5>
-                  </div>
-                </div>
+                @endforeach
               </div>
             </div>
           </div>
           <div class="col-md-6">
-            <div class="collapse show" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="img_container ">
-                <div class="box b-1">
-                  <div class="img-box">
-                    <img src="images/t-1.jpg" alt="">
-                  </div>
-                  <div class="img-box">
-                    <img src="images/t-2.jpg" alt="">
-                  </div>
+            <div class="d-none">
+              {{$y=1}}
+            </div>
+            @foreach($cat_pro as $key =>$values)
+              <div class="collapse show" id="collapse{{$y}}" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="d-none">
+                  {{$y++}}
                 </div>
-                <div class="box b-2">
-                  <div class="img-box">
-                    <img src="images/t-3.jpg" alt="">
-                  </div>
-                  <div class="img-box">
-                    <img src="images/t-4.jpg" alt="">
-                  </div>
+                <div class="img_container ">
+                  @foreach($values as $value)
+                    <div class="box b-1">
+                      <div class="img-box">
+                        <img src="uploads/{{$value}}" alt="">
+                      </div>
+                  
+                    </div>
+                  @endforeach 
                 </div>
               </div>
-            </div>
-            <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordion">
-              <div class="img_container ">
-                <div class="box b-1">
-                  <div class="img-box">
-                    <img src="images/t-3.jpg" alt="">
-                  </div>
-                  <div class="img-box">
-                    <img src="images/t-4.jpg" alt="">
-                  </div>
-                </div>
-                <div class="box b-2">
-
-                  <div class="img-box">
-                    <img src="images/t-1.jpg" alt="">
-                  </div>
-                  <div class="img-box">
-                    <img src="images/t-2.jpg" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#accordion">
-              <div class="img_container ">
-                <div class="box b-1">
-                  <div class="img-box">
-                    <img src="images/t-4.jpg" alt="">
-                  </div>
-                  <div class="img-box">
-                    <img src="images/t-1.jpg" alt="">
-                  </div>
-                </div>
-                <div class="box b-2">
-                  <div class="img-box">
-                    <img src="images/t-3.jpg" alt="">
-                  </div>
-                  <div class="img-box">
-                    <img src="images/t-2.jpg" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="collapse" id="collapseFour" aria-labelledby="headingfour" data-parent="#accordion">
-              <div class="img_container ">
-                <div class="box b-1">
-                  <div class="img-box">
-                    <img src="images/t-1.jpg" alt="">
-                  </div>
-
-                  <div class="img-box">
-                    <img src="images/t-4.jpg" alt="">
-                  </div>
-                </div>
-                <div class="box b-2">
-                  <div class="img-box">
-                    <img src="images/t-3.jpg" alt="">
-                  </div>
-                  <div class="img-box">
-                    <img src="images/t-2.jpg" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
+            @endforeach
+            
+       
 
           </div>
         </div>
@@ -222,7 +127,7 @@
         </div>
         <div class="col-md-6">
           <div class="img-box">
-            <img src="images/discount-img.png" alt="">
+            <img src="{{url('assets/images/discount-img.png ')}}" alt="">
           </div>
         </div>
       </div>

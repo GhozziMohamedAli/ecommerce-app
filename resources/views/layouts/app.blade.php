@@ -31,8 +31,8 @@
   <!-- responsive style -->
   <link href="{{ url('assets/css/responsive.css') }}" rel="stylesheet" />
 </head>
-<body class="sub_page">
-  
+<body class="{{$subpage == true ? 'sub_page' : ''}}">
+ 
     @include('layouts.header')
     @yield('content')
     <script type="text/javascript" src="{{ url('assets/js/jquery-3.4.1.min.js') }}"></script>
@@ -64,13 +64,14 @@
     <script>
       var nav = $("#navbarSupportedContent");
       var btn = $(".custom_menu-btn");
-      btn.click
+      
       btn.click(function (e) {
   
         e.preventDefault();
         nav.toggleClass("lg_nav-toggle");
         document.querySelector(".custom_menu-btn").classList.toggle("menu_btn-style")
       });
+      btn.click();
     </script>
     <script>
       $('.carousel').on('slid.bs.carousel', function () {
