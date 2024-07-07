@@ -24,7 +24,7 @@
           </ul>
           <div class="user_option">
             
-              <button type="button" onclick="checkout()" class="btn  position-relative  mt-3 mr-3 mb-1">
+              <button type="button" onclick="checkout()"  id="add_to_cart" class="btn  d-none position-relative  mt-3 mr-3 mb-1">
                 <span class=""><i class="material-icons" style="color:white;">shopping_cart</i></span>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light d-none" id="cart_num">
                  0

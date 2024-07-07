@@ -32,10 +32,13 @@ Route::prefix('/category')->group(function(){
 });
 
 Route::prefix('/shop')->group(function(){
-    Route::get('/',[ShopController::class,'index']);
+    Route::get('/',[ShopController::class,'index'])->name('shop');
     Route::post('/cart',[ShopController::class,'cart']);
     Route::get('/checkout',[ShopController::class,'checkout']);
+    Route::post('/charge', [App\Http\Controllers\ShopController::class, 'pay']);
 });
 Auth::routes();
 
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

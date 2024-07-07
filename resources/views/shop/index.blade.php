@@ -25,7 +25,7 @@
               </div>
               
                 <div class="card-footer bg-success ">
-                  <button class="btn text-white" id="add_to_cart">
+                  <button class="btn text-white ">
                     <i class="material-icons green600 md-18">add_shopping_cart</i>
                     <span style="position:relative;bottom:4px;">
                       {{__('Add to cart')}}

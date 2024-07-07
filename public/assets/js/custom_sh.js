@@ -1,10 +1,19 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     checkout_prods = document.querySelectorAll('.row_check');
+   
     checkout_prods.forEach((product)=>{
-        init_price = parseInt(product.querySelector('span').innerHTML);
         product.querySelector('input[type=number').addEventListener('change',(event)=>{
-           
+            init_price = parseInt(product.querySelector('span').innerHTML);
+            prod_name = product.childNodes[3].querySelector('.mb-0').innerHTML;
+            document.querySelectorAll('.pay-quantity').forEach((quant_pay)=>{
+                quant_name = quant_pay.nextElementSibling.value;
+                console.log(quant_pay);
+                if(quant_name == prod_name){
+                    quant_pay.value = parseInt(product.querySelector('input[type=number').value);
+                }
+            });
             quantity =parseInt(product.querySelector('input[type=number').value);
+            
             prod_price = init_price * quantity;
             product.querySelector('span').innerHTML = prod_price;
             cal_total_price();
@@ -24,6 +33,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             console.log(cart_prods);
             localStorage.setItem('products_ids',cart_prods);
             cart_num.classList.remove("d-none");
+            add_to_cart.classList.remove("d-none");
             cart_num.innerText = parseInt(cart_num.innerText) + 1;
             product.lastElementChild.firstElementChild.disabled = true;
         });
@@ -202,6 +212,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         checkout_prods.forEach((product)=>{
            total_price+= parseInt(product.querySelector('span').innerHTML);
         });
+        let total_taxed = total_price * 15 / 100;
+        
         document.querySelector('.total_price1').querySelector('span').innerHTML = total_price;
-        document.querySelector('.total_price2').querySelector('span').innerHTML = total_price;
+        document.querySelector('.total_price2').querySelector('span').innerHTML = total_price + total_taxed;
     }
