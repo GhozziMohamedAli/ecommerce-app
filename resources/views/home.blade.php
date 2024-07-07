@@ -52,8 +52,8 @@
               <div class="d-none">
                 {{$i=1}}
               </div>  
-                @foreach($category as $cat)
-                  <div class="t-link-box" data-toggle="collapse" data-target="#collapse{{$i}}" aria-expanded="true"
+                @foreach($cat_pro as $key => $value)
+                  <div class="t-link-box {{ $i == 1 ? '' : 'collapsed' }}" data-toggle="collapse" data-target="#collapse{{$i}}" aria-expanded="{{ $i == 1 ? 'true' : ' ' }}"
                   aria-controls="collapseOne">
                   <div class="number">
                     <h5>
@@ -63,7 +63,7 @@
                   <hr>
                   <div class="t-name">
                     <h5>
-                      {{$cat->name}}
+                      {{$key}}
                     </h5>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
               {{$y=1}}
             </div>
             @foreach($cat_pro as $key =>$values)
-              <div class="collapse show" id="collapse{{$y}}" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="collapse {{ $y == 1 ? 'show' : ' ' }}" id="collapse{{$y}}" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="d-none">
                   {{$y++}}
                 </div>
@@ -138,87 +138,42 @@
   <!-- end discount section -->
 
   <!-- brand section -->
-
+  @if(count($fproducts) == 4)
   <section class="brand_section">
     <div class="container">
       <div class="heading_container">
         <h2>
-          Featured Brands
+          {{__('Featured Brands')}}
         </h2>
       </div>
       <div class="brand_container layout_padding2">
+        @foreach ($fproducts as $item)
         <div class="box">
           <a href="">
-            <div class="new">
-              <h5>
-                New
-              </h5>
-            </div>
+            
             <div class="img-box">
-              <img src="{{url('images/slider-img.png')}}" alt="">
+              <img src="uploads/{{$item->path}}" alt="">
             </div>
             <div class="detail-box">
               <h6 class="price">
-                $100
+                {{$item->price}}
               </h6>
               <h6>
-                Chair
+                {{$item->name}}
               </h6>
             </div>
           </a>
         </div>
-        <div class="box">
-          <a href="">
-            <div class="img-box">
-              <img src="images/slider-img.png" alt="">
-            </div>
-            <div class="detail-box">
-              <h6 class="price">
-                $100
-              </h6>
-              <h6>
-                Chair
-              </h6>
-            </div>
-          </a>
-        </div>
-        <div class="box">
-          <a href="">
-            <div class="img-box">
-              <img src="images/slider-img.png" alt="">
-            </div>
-            <div class="detail-box">
-              <h6 class="price">
-                $100
-              </h6>
-              <h6>
-                Chair
-              </h6>
-            </div>
-          </a>
-        </div>
-        <div class="box">
-          <a href="">
-            <div class="img-box">
-              <img src="images/slider-img.png" alt="">
-            </div>
-            <div class="detail-box">
-              <h6 class="price">
-                $100
-              </h6>
-              <h6>
-                Chair
-              </h6>
-            </div>
-          </a>
-        </div>
+
+        @endforeach
+        
       </div>
-      <a href="" class="brand-btn">
-        See More
+      <a href="/shop" class="brand-btn">
+        {{__('See More')}}
       </a>
     </div>
   </section>
-
+  @endif
   <!-- end brand section -->
   <!-- contact section -->
 

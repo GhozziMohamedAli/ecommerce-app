@@ -5,25 +5,25 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
-Route::get('/', function () {
-    return view('welcome');
+use App\Http\Controllers\DashboardController;
+
+Route::get('/', [HomeController::class,'index']);
+
+Route::prefix('admin')->group(function(){
+    Route::get('/dashboard',[DashboardController::Class,'index']);
+    //Product Routes
+    Route::resources([
+        'products' => ProductController::class,
+        'category' => CategoryController::class
+        ]);
+    
 });
-Route::get('/home', [HomeController::class,'index']);
-
-Route::resources([
-'products' => ProductController::class,
-'category' => CategoryController::class
-]);
-
-Route::get('/dash', function () {
-    return view('admin.dashboard');
-});
-
-
+//Sub_routes
 Route::prefix('/products')->group(function(){
     Route::post('/listDelete',[ProductController::class,'listDelete']);
     Route::post('/filter',[ProductController::class,'Filter']);
 });
+
 
 Route::get('/loadCategories',[ProductController::class,'load_categories']);
 Route::prefix('/category')->group(function(){
@@ -33,4 +33,9 @@ Route::prefix('/category')->group(function(){
 
 Route::prefix('/shop')->group(function(){
     Route::get('/',[ShopController::class,'index']);
+    Route::post('/cart',[ShopController::class,'cart']);
+    Route::get('/checkout',[ShopController::class,'checkout']);
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -23,12 +23,36 @@
             
           </ul>
           <div class="user_option">
-            <a href="">
+            
+              <button type="button" onclick="checkout()" class="btn  position-relative  mt-3 mr-3 mb-1">
+                <span class=""><i class="material-icons" style="color:white;">shopping_cart</i></span>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light d-none" id="cart_num">
+                 0
+                </span>
+              </button>
+              
+            
+            @if(!Auth::user())
+            <a href="{{url('login')}}">
               <img src="{{url('assets/images/user.png')}}" alt="">
               <span>
                 Login
               </span>
             </a>
+            @endif
+            <a href="/admin/dashboard">
+              <span class=""><i class="material-icons">dashboard</i></span>
+              <span>
+                {{__('Dashboard')}}
+              </span>
+            </a>
+            <a href="">
+              <span class=""><i class="material-icons">account_circle</i></span>
+              <span>
+                {{__('Profile')}}
+              </span>
+            </a>
+            
             <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
               <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
             </form>

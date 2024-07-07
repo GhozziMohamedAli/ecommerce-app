@@ -13,7 +13,9 @@
         <div class="col-8">
           <div class="brand_container layout_padding2"  id="card">
             @foreach ($products as $product)
-            <div class="card m-2" name="card" style="width: 13rem;">
+            
+            <div class="card card-shop m-2" name="card" style="width: 13rem;">
+              <input type="hidden" id="cart_prod_id" value="{{$product->id}}">
               <img src="{{url('uploads/'.$product->path)}}" alt="" width="100%">
               <div class="card-body">
                 <h5 class="card-title">{{$product->name}}</h5>
@@ -21,16 +23,17 @@
                 <p class="card-text"><span class="text-success">{{$product->price}}</span> <span style="font-size:11px">$</span></p>
                 
               </div>
-              <a href="">
-                <div class="card-footer bg-success text-white">
-                  <i class="material-icons green600 md-18">add_shopping_cart</i>
-                  <span style="position:relative;bottom:4px;">
-                    {{__('Add to cart')}}
-                  </span>
-                   
-                    
+              
+                <div class="card-footer bg-success ">
+                  <button class="btn text-white" id="add_to_cart">
+                    <i class="material-icons green600 md-18">add_shopping_cart</i>
+                    <span style="position:relative;bottom:4px;">
+                      {{__('Add to cart')}}
+                    </span>
+                  </button>  
+   
                 </div>
-              </a>
+              
               
             </div>
             @endforeach 

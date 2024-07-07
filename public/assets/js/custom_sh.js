@@ -1,4 +1,34 @@
 document.addEventListener('DOMContentLoaded', (event) => {
+    checkout_prods = document.querySelectorAll('.row_check');
+    checkout_prods.forEach((product)=>{
+        init_price = parseInt(product.querySelector('span').innerHTML);
+        product.querySelector('input[type=number').addEventListener('change',(event)=>{
+           
+            quantity =parseInt(product.querySelector('input[type=number').value);
+            prod_price = init_price * quantity;
+            product.querySelector('span').innerHTML = prod_price;
+            cal_total_price();
+        });
+    });
+
+    products = document.querySelectorAll('.card-shop');
+    add_to_cart = document.getElementById('add_to_cart');
+    cart_num = document.getElementById('cart_num');
+    const cart_prods = [];
+    if(parseInt(cart_num.innerText) != 0){
+        cart_num.classList.remove("d-none");
+    }
+    products.forEach((product)=>{
+        product.lastElementChild.firstElementChild.addEventListener('click',(event)=>{
+            cart_prods.push(product.firstElementChild.value);
+            console.log(cart_prods);
+            localStorage.setItem('products_ids',cart_prods);
+            cart_num.classList.remove("d-none");
+            cart_num.innerText = parseInt(cart_num.innerText) + 1;
+            product.lastElementChild.firstElementChild.disabled = true;
+        });
+    })
+   
     minFieldShop=document.getElementById("minPriceShop");
     maxFieldShop=document.getElementById("maxPriceShop");
 
@@ -54,7 +84,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         minPriceShop=document.getElementById("minPriceShop").value;
         maxPriceShop=document.getElementById("maxPriceShop").value;
-    
+        products = document.querySelectorAll('.card');
             const category_cb = document.getElementsByName("category_cb");
             const values = [];
                 for(i=0;i<category_cb.length;i++){
@@ -74,14 +104,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
                     },
                     success:function(response){
-                        console.log("piew");
+                      
                         if(response.success){
                             $('#cancel_filter_shop').removeClass("d-none");
-                            console.log(response.data);
+                           
                             $('#card').empty();
                             response.data.forEach(function(product){
+                                
                                 $('#card').append(
-                                `<div class="card m-2" style="width: 13rem;">
+                                `
+                                <div class="card m-2" style="width: 13rem;">
+                                    <input type="hidden" id="cart_prod_id" value="`+product.id+`"></input>
                                     <img src="uploads/`+product.path+`" alt="" width="100%">
                                     <div class="card-body">
                                         <h5 class="card-title">`+product.name+`</h5>
@@ -89,20 +122,32 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                         <p class="card-text"><span class="text-success">`+product.price+`</span> <span style="font-size:11px">$</span></p>
                                         
                                     </div>
-                                    <a href="">
-                                        <div class="card-footer bg-success text-white">
-                                        <i class="material-icons green600 md-18">add_shopping_cart</i>
-                                        <span style="position:relative;bottom:4px;">
+                                    <div class="card-footer bg-success ">
+                                        <button class="btn text-white" id="add_to_cart">
+                                            <i class="material-icons green600 md-18">add_shopping_cart</i>
+                                            <span style="position:relative;bottom:4px;">
                                             Add to cart
-                                        </span>
-                                        
-                                            
-                                        </div>
-                                    </a>
+                                            </span>
+                                        </button>  
+                    
+                                    </div>
                                     
                                 </div>`
                                 )
+                                
                             })
+                            const cart_prods = [];
+                                products = document.querySelectorAll('.card-shop');
+                                cart_num = document.getElementById('cart_num');
+                                products.forEach((product)=>{
+                                    product.lastElementChild.firstElementChild.addEventListener('click',(event)=>{
+                                        cart_prods.push(product.firstElementChild.value);
+                                        console.log(cart_prods);
+                                        cart_num.classList.remove("d-none");
+                                        cart_num.innerText = parseInt(cart_num.innerText) + 1;
+                                        product.lastElementChild.firstElementChild.disabled = true;
+                                    });
+                                })
                         }
                       
                     }
@@ -128,4 +173,35 @@ document.addEventListener('DOMContentLoaded', (event) => {
             cards[i].style.display ="";
         }
       
+    }
+
+    function checkout(){
+        prods_ids = localStorage.getItem('products_ids');
+        if(prods_ids.length > 0){
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url:'/shop/cart',
+                type:'POST',
+                data:{
+                    products_ids:prods_ids
+                },
+                success:function(response){
+                    if(response.success){
+                        localStorage.removeItem('products_ids');
+                        window.location.href = '/shop/checkout';
+                    }
+                }
+            })
+        }
+    }
+
+    function cal_total_price(){
+        
+        checkout_prods = document.querySelectorAll('.row_check');
+        total_price = 0;
+        checkout_prods.forEach((product)=>{
+           total_price+= parseInt(product.querySelector('span').innerHTML);
+        });
+        document.querySelector('.total_price1').querySelector('span').innerHTML = total_price;
+        document.querySelector('.total_price2').querySelector('span').innerHTML = total_price;
     }

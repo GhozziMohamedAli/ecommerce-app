@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
+    // Initialize your app here
+       
         minField=document.getElementById("minPrice");
         maxField=document.getElementById("maxPrice");
 

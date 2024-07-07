@@ -111,12 +111,18 @@ body {
   display: -ms-flexbox;
   display: flex;
   color: #ffffff;
+  margin-right:5px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
 .header_section .user_option a img {
+  min-width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.header_section .user_option a span {
   min-width: 20px;
   height: 20px;
   margin-right: 5px;

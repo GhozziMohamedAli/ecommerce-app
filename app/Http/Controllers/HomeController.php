@@ -4,29 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
     public function index(){
-        $category = Category::all();
+        $fproducts=Product::all()->take(4);
+        $category = Category::all()->take(3);
         $cat_pro=[];
         $pro = [];
-        $i=0;
         foreach ($category as $cat)
         {
-            foreach($cat -> products as $product){
-                if($i=4){
-                   break;
-                }else{
-                    array_push($pro,$product->path);
-                    $i++;
+            $products = $cat->products;
+            if(count($products)>=2){
+                for($i=0;$i<2;$i++){
+                    array_push($pro,$products[$i]->path);
                 }
-                
-            }
-            $cat_pro[$cat->name]=$pro;
-            $pro=array();
+                $cat_pro[$cat->name]=$pro;
+                $pro=array();
+            } 
         }
-        
-        return view('home',['category' => $category,'cat_pro' => $cat_pro]);
+       
+        return view('home',['cat_pro' => $cat_pro,'fproducts'=>$fproducts]);
     }
 }

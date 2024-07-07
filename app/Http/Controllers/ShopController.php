@@ -24,6 +24,21 @@ class ShopController extends Controller
         return view('shop.index',['products' => $products ,'category' => $category]);
     }
 
+    public function cart(Request $request){
+        $prods_ids =explode(',',$request->products_ids);
+        $request->session()->put('prods_ids', $prods_ids);
+        return response(['success' => true]);
+    }
+
+    public function checkout(Request $request){
+        if($request->session()->exists('prods_ids')){
+            $prods_ids = $request->session()->get('prods_ids');
+            
+            $products = Product::whereIn('id', $prods_ids)->get();
+            return view('shop.checkout', ['products' => $products]);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      */
