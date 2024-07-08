@@ -35,7 +35,7 @@ Route::prefix('/shop')->group(function(){
     Route::get('/',[ShopController::class,'index'])->name('shop');
     Route::post('/cart',[ShopController::class,'cart']);
     Route::get('/checkout',[ShopController::class,'checkout']);
-    Route::post('/charge', [App\Http\Controllers\ShopController::class, 'pay']);
+    Route::post('/charge', [App\Http\Controllers\ShopController::class, 'pay'])->middleware(['web', 'auth']);;
 });
 Auth::routes();
 

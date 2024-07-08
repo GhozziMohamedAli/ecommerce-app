@@ -9,6 +9,12 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct(){
+        if(!gate::allows('view-dashboard')){
+            abort(403);
+        }
+    }
+    
     public function index()
     {
         $categories = Category::all();

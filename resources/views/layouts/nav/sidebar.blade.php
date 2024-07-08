@@ -45,17 +45,19 @@
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+      </form>
         <li class="nav-item">
-          <form action="{{url('logout')}}" method="POST">
-            @csrf
-            <button class="nav-link text-dark " type="submit">
-              <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="material-icons opacity-10">logout</i>
-              </div>
-              <span class="nav-link-text ms-1">Logout</span>
-            </button>
-          </form>
           
+          <a class="nav-link text-dark " href="" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">logout</i>
+            </div>
+            <span class="nav-link-text ms-1">
+              {{__('Logout')}}
+            </span>
+          </a> 
         </li>
         <li class="nav-item">
           <a class="nav-link text-dark " href="./pages/sign-up.html">

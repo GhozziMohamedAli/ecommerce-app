@@ -39,20 +39,31 @@
                 Login
               </span>
             </a>
-            @endif
+            @else
+            @can('view-dashboard')
             <a href="/admin/dashboard">
               <span class=""><i class="material-icons">dashboard</i></span>
               <span>
                 {{__('Dashboard')}}
               </span>
             </a>
+            @endcan
             <a href="">
               <span class=""><i class="material-icons">account_circle</i></span>
               <span>
                 {{__('Profile')}}
               </span>
             </a>
-            
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+          </form>
+            <a href="" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              <span class=""><i class="material-icons">logout</i></span>
+              <span>
+                {{__('Logout')}}
+              </span>
+            </a>
+            @endif
             <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
               <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
             </form>
