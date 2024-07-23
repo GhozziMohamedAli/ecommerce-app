@@ -3,17 +3,14 @@
 namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function __construct(){
-        if(!gate::allows('view-dashboard')){
-            abort(403);
-        }
-    }
+ 
     
     public function index()
     {

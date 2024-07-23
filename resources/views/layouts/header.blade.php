@@ -47,11 +47,24 @@
                 {{__('Dashboard')}}
               </span>
             </a>
+            @else
+            <a href="/user/dashboard">
+              <span class=""><i class="material-icons">dashboard</i></span>
+              <span>
+                {{__('Dashboard')}}
+              </span>
+            </a>
             @endcan
             <a href="">
               <span class=""><i class="material-icons">account_circle</i></span>
               <span>
                 {{__('Profile')}}
+              </span>
+            </a>
+            <a href="/chat">
+              <span class=""><i class="material-icons">chat</i></span>
+              <span>
+                {{__('Chat')}}
               </span>
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

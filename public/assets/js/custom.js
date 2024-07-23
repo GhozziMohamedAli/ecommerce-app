@@ -77,16 +77,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 </td>
                                 <td class="text-center align-middle">
                                 
-                                <button class="btn btn-icon p-0" onclick="showProducts('/products/',`+product.id+`)" data-bs-target="#ShowModal" data-bs-toggle="modal" role="button">
+                                <button class="btn btn-icon p-0" onclick="showProducts('/admin/products/',`+product.id+`)" data-bs-target="#ShowModal" data-bs-toggle="modal" role="button">
                                     <span class="btn-inner--icon">
                                     <i class="material-icons">visibility</i>
                                     </span>
                                     </button>
                                     
-                                <button onclick="edit_product('/products/',`+product.id+`)" class="btn  p-0 text-info font-weight-bold text-xs" data-bs-target="#EditModal" data-bs-toggle="modal" role="button" >
+                                <button onclick="edit_product('/admin/products/',`+product.id+`)" class="btn  p-0 text-info font-weight-bold text-xs" data-bs-target="#EditModal" data-bs-toggle="modal" role="button" >
                                     <i class="material-icons">edit</i>
                                 </button>
-                                <button onclick="delete_record('/products/',`+product.id+`)" class="btn  p-0 text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                <button onclick="delete_record('/admin/products/',`+product.id+`)" class="btn  p-0 text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                     <i class="material-icons">delete</i>
                                 </button>
                                 </td>
@@ -284,7 +284,7 @@ function category_has_products(id){
                         console.log("hello");
                         $.ajax({
                             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                            url:'/category/'+id,
+                            url:'/admin/category/'+id,
                             type:'DELETE',
                             success:function(response){
                                 if(response.success){
@@ -308,7 +308,7 @@ function category_has_products(id){
                     }
                 });
             }else{
-                delete_record('/category/',id);
+                delete_record('/admin/category/',id);
             }
         }
     });
@@ -504,22 +504,25 @@ function edit_product(url,id){
 function update_product(url){
     var formData = new FormData();
     id = document.getElementById('prod_id').value;
-    img = document.getElementById('edit_image').files[0];
     edit_name=$('#edit_name').val();
     edit_description=$('#edit_descr').val();
     edit_cat=$('#edit_category_select').val();
     edit_price=$('#edit_price').val();
     edit_quantity=$('#edit_quantity').val();
-
+    img=document.getElementById('edit_image').files[0];
     
     formData.append('edit_name',edit_name);
     formData.append('edit_description',edit_description);
     formData.append('edit_category',edit_cat);
     formData.append('edit_price',edit_price);
     formData.append('edit_quantity',edit_quantity);
-    formData.append('edit_image',img);
+    if(img){
+        formData.append('edit_image',img);
+    }
+        
+
     formData.append('_method', 'PUT');
-    console.log(formData);
+   
 
     $.ajax({
         headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -556,7 +559,7 @@ function update_product(url){
                 $('#update_prod_err').show();
             }
         }, error: function(error) {
-            console.log('error in update product: '+error.message);
+            console.log('error in update product: '+error);
         }
     });
 }

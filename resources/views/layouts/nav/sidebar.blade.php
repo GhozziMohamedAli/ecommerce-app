@@ -17,22 +17,35 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
+        @can('view-dashboard')
+          <li class="nav-item">
+            <a class="nav-link text-dark {{$activePage == 'products' ? 'active bg-gradient-info' : '' }} " href="{{url('/admin/products')}}">
+              <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="material-icons opacity-10">table_view</i>
+              </div>
+              <span class="nav-link-text ms-1">{{__('Products')}}</span>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link text-dark {{$activePage == 'category' ? 'active bg-gradient-info' : '' }} " href="{{url('/admin/category')}}">
+              <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="material-icons opacity-10">receipt_long</i>
+              </div>
+              <span class="nav-link-text ms-1">{{__('Category')}}</span>
+            </a>
+          </li>
+        @endcan
+        @cannot('view-dashboard')
         <li class="nav-item">
-          <a class="nav-link text-dark {{$activePage == 'products' ? 'active bg-gradient-info' : '' }} " href="{{url('/admin/products')}}">
-            <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">table_view</i>
-            </div>
-            <span class="nav-link-text ms-1">{{__('Products')}}</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark {{$activePage == 'category' ? 'active bg-gradient-info' : '' }} " href="{{url('/admin/category')}}">
+          <a class="nav-link text-dark {{$activePage == 'orders' ? 'active bg-gradient-info' : '' }} " href="{{url('/user/order')}}">
             <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>
-            <span class="nav-link-text ms-1">{{__('Category')}}</span>
+            <span class="nav-link-text ms-1">{{__('Orders')}}</span>
           </a>
         </li>
+        @endcan
+        
         
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-8">Account pages</h6>
@@ -59,19 +72,8 @@
             </span>
           </a> 
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark " href="./pages/sign-up.html">
-            <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">assignment</i>
-            </div>
-            <span class="nav-link-text ms-1">Sign Up</span>
-          </a>
-        </li>
+       
       </ul>
     </div>
-    <div class="sidenav-footer position-absolute w-100 bottom-0 ">
-      <div class="mx-3">
-        <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-      </div>
-    </div>
+    
   </aside>

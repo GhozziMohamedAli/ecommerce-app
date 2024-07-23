@@ -88,16 +88,16 @@
                     </td>
                     <td class="text-center align-middle">
                       
-                      <button class="btn btn-icon p-0" onclick="showProducts('/products/',{{$product->id}})" data-bs-target="#ShowModal" data-bs-toggle="modal" role="button">
+                      <button class="btn btn-icon p-0" onclick="showProducts('/admin/products/',{{$product->id}})" data-bs-target="#ShowModal" data-bs-toggle="modal" role="button">
                         <span class="btn-inner--icon">
                           <i class="material-icons">visibility</i>
                          </span>
                         </button>
                         
-                      <button onclick="edit_product('/products/',{{$product->id}})" class="btn  p-0 text-info font-weight-bold text-xs" data-bs-target="#EditModal" data-bs-toggle="modal" role="button" >
+                      <button onclick="edit_product('/admin/products/',{{$product->id}})" class="btn  p-0 text-info font-weight-bold text-xs" data-bs-target="#EditModal" data-bs-toggle="modal" role="button" >
                         <i class="material-icons">edit</i>
                       </button>
-                      <button onclick="delete_record('/products/',{{$product->id}})" class="btn btn-icon p-0 text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                      <button onclick="delete_record('/admin/products/',{{$product->id}})" class="btn btn-icon p-0 text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                         <i class="material-icons">delete</i>
                       </button>
                     </td>
@@ -230,7 +230,7 @@
             @endforeach
       
         @endif
-        <form action="{{url('/products')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{url('/admin/products')}}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="row">
             <div class="col-md-12">
@@ -367,7 +367,7 @@
 
       <div class="modal-footer">
             <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-            <button onclick="update_product('/products/')"  type="submit" class="btn bg-gradient-info">{{__('Save')}}</button>
+            <button onclick="update_product('/admin/products/')"  type="submit" class="btn bg-gradient-info">{{__('Save')}}</button>
       </div>
     </div>
     </div>

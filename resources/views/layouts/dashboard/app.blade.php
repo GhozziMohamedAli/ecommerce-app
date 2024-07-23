@@ -23,6 +23,8 @@
  
   <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui/material-ui.css" rel="stylesheet">
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -302,7 +304,7 @@
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
   <script type="text/javascript" src="{{ url('assets/js/jquery-3.4.1.min.js') }}"></script>
   <script src="{{url('assets/js/custom.js')}}"></script>
-
+  
   @if(Session::has('error'))
   <script>
     var error = '<?php echo Session::get('error')?>';
@@ -347,8 +349,7 @@
         icon: 'success',
         title: "Success",
         text:success,
-        color:"#fff",
-        background:"linear-gradient(195deg, #66BB6A 0%, #43A047 100%) "
+        
         
     })
 </script>

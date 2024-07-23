@@ -22,7 +22,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('view-dashboard', function (User $user) {
-            return $user->id === 1;
+           
+            return $user->id===1;
         });
     }
 }

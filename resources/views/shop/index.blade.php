@@ -10,7 +10,35 @@
         </h2>
       </div>
       <div class="row">
-        <div class="col-8">
+        <div class="col-xs-12 col-2 border bg-gradient bg-success mt-5 shadow text-white">
+          <h2> 
+            Filter
+          </h2>
+  
+          <label for="minPrice" class="form-label">{{__('Min Price')}}</label>
+          <input type="number" min="0" class="form-control" id="minPriceShop">
+
+          <label for="maxPrice" class="form-label">{{__('Max Price')}}</label>
+          <input type="number" min="0" class="form-control" id="maxPriceShop">  
+           
+          <div class="my-3">
+            <label class="form-label">{{__('Categories')}}</label>
+            @foreach($category as $cat)
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="{{$cat->id}}" name="category_cb" id="category_name">
+              <label class="form-check-label t-name" for="flexCheckDefault">
+                {{$cat->name}}
+              </label>
+            </div>
+            @endforeach
+          </div>
+          <button type="submit" onclick="shop_filter()" class="btn btn-info bg-gradient-info" id="filterbtn" >Filter</button>
+          <button type="button" class="btn btn-danger d-none" id="cancel_filter_shop">
+            {{__('cancel')}}
+          </button>
+        </div>
+
+        <div class="col-10 col-xs-8">
           <div class="brand_container layout_padding2"  id="card">
             @foreach ($products as $product)
             
@@ -56,38 +84,7 @@
           </div>
         </div>
 
-        <div class="col-4">
-          <h2>
-            Filter
-          </h2>
-          <div class="row ">
-            <div class="col-6  ">
-             
-                <label for="minPrice" class="form-label">{{__('Min Price')}}</label>
-                <input type="number" min="0" class="form-control" id="minPriceShop">
-              </div>
-            
-            <div class="col-6 ">
-              <label for="maxPrice" class="form-label">{{__('Max Price')}}</label>
-              <input type="number" min="0" class="form-control" id="maxPriceShop">  
-            </div>
-          </div>
-          <div class="my-3">
-            <label class="form-label">{{__('Categories')}}</label>
-            @foreach($category as $cat)
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="{{$cat->id}}" name="category_cb" id="category_name">
-              <label class="form-check-label t-name" for="flexCheckDefault">
-                {{$cat->name}}
-              </label>
-            </div>
-            @endforeach
-          </div>
-          <button type="submit" onclick="shop_filter()" class="btn btn-info bg-gradient-info" id="filterbtn" >Filter</button>
-          <button type="button" class="btn btn-danger d-none" id="cancel_filter_shop">
-            {{__('cancel')}}
-          </button>
-        </div>
+       
       </div> 
        
         

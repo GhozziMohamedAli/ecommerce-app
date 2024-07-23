@@ -28,7 +28,15 @@
   }
 
   .header_section .user_option {
-    display: none;
+  
+      /* display: none; */
+      background-color: black;
+      /* position: relative; */
+      text-align: center;
+      /* left: 25%; */
+      /* right: 52%; */
+      padding-left: 75px;
+  
   }
 
   .custom_menu-btn {

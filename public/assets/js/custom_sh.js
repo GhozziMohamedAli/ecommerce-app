@@ -2,12 +2,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     checkout_prods = document.querySelectorAll('.row_check');
    
     checkout_prods.forEach((product)=>{
-        product.querySelector('input[type=number').addEventListener('change',(event)=>{
-            init_price = parseInt(product.querySelector('span').innerHTML);
+        product.querySelector('input[type=number]').addEventListener('change',(event)=>{
+            init_price = parseInt(product.querySelector('.init_price').value);
             prod_name = product.childNodes[3].querySelector('.mb-0').innerHTML;
             document.querySelectorAll('.pay-quantity').forEach((quant_pay)=>{
                 quant_name = quant_pay.nextElementSibling.value;
-                console.log(quant_pay);
                 if(quant_name == prod_name){
                     quant_pay.value = parseInt(product.querySelector('input[type=number').value);
                 }

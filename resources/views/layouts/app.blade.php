@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- Site Metas -->
   <meta name="keywords" content="" />
   <meta name="description" content="" />
@@ -30,15 +30,19 @@
   <link href="{{ url('assets/css/style.css') }}" rel="stylesheet" />
   <!-- responsive style -->
   <link href="{{ url('assets/css/responsive.css') }}" rel="stylesheet" />
+  <script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
+  <script type="text/javascript" src="{{ url('assets/js/jquery-3.4.1.min.js') }}"></script>
+  
 </head>
 <body class="{{$subpage == true ? 'sub_page' : ''}}">
  
     @include('layouts.header')
     @yield('content')
-    <script type="text/javascript" src="{{ url('assets/js/jquery-3.4.1.min.js') }}"></script>
+    
     <script type="text/javascript" src="{{ url('assets/js/bootstrap.js') }}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
-    </script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
+   
+   </script>
     <script type="text/javascript">
       $(".owl-carousel").owlCarousel({
         loop: true,
@@ -78,10 +82,11 @@
         $(".indicator-2 li").removeClass("active");
         indicators = $(".carousel-indicators li.active").data("slide-to");
         a = $(".indicator-2").find("[data-slide-to='" + indicators + "']").addClass("active");
-        console.log(indicators);
+       
   
       })
     </script>
     <script src="{{url('assets/js/custom_sh.js')}}"></script>
+    
 </body>
 </html>

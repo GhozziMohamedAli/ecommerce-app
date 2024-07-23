@@ -11,13 +11,10 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function __construct(){
-        if(!gate::allows('view-dashboard')){
-            abort(403);
-        }
-    }
-    public function index()
+
+    public function index(Request $request)
     {
+    
        $category = Category::all();
         $products = Product::all();
         return view('products.index',['products' => $products , 'category' =>$category]);
@@ -114,6 +111,7 @@ class ProductController extends Controller
                 return response(['success' => false, 'error' => 'this product name already exists in this category']);
             }
         }
+        
         if($request->file('edit_image')){
             if($product->path && file_exists(public_path('uploads/'.$product->path))){
                 unlink(public_path('uploads/'.$product->path));
@@ -123,9 +121,10 @@ class ProductController extends Controller
             $destinationPath = public_path('uploads');
             $image->move($destinationPath, $image_name);
             $path = $image_name;
+            $product['path'] =$path;
         }
         
-        $product['path'] =$path;
+        
         $product['name']=$request->edit_name;
         $product['description']=$request->edit_description;
         $product['price']=$request->edit_price;

@@ -9,19 +9,17 @@
         <h6 class="text-capitalize font-weight-bolder mb-0">{{$activePage}}</h6>
       </nav>
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-          <div class="input-group input-group-outline">
-            <label class="form-label">Type here...</label>
-            <input type="text" class="form-control">
-          </div>
+        <div class="ms-md-auto pe-md-3 d-flex align-items-center ">
+          <a class="mb-0 btn btn-success" href="/shop">
+            <div class="text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons ">undo</i>
+              <span class="nav-link-text ms-1">{{__('Back To Shop')}}</span> 
+            </div>
+            
+          </a>  
         </div>
-        <ul class="navbar-nav  justify-content-end">
-          <li class="nav-item d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-              <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none">Sign In</span>
-            </a>
-          </li>
+        <ul class="navbar-nav justify-content-end">
+          
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
               <div class="sidenav-toggler-inner">

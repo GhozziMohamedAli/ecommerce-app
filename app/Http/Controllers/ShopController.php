@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\Cart;
 use App\Models\Category;
 
 class ShopController extends Controller
@@ -40,10 +42,24 @@ class ShopController extends Controller
     }
 
     public function pay(Request $request){
-      
+        
+        $user = $request->user();
+
+        $order = Order::create([
+            "status" => 0
+        ]);
+
             $products = array();
             for($i=0;$i< sizeof($request->name);$i++){
-                
+                //Cart creation
+                $cart = Cart::create([
+                'prod_name' => $request->name[$i],
+                'quantity' => $request->quantity[$i],
+                'price' => $request->price[$i]
+                ]);
+                $cart->order()->associate($order)->save();
+
+                //checkout product creation
                 array_push($products, [
                     'price_data' => [
                     'currency' => 'sar',
@@ -55,6 +71,7 @@ class ShopController extends Controller
                     'quantity' => $request->quantity[$i],
                 ]);
             }
+            $order->user()->associate($user)->save();
            
             $stripe = new \Stripe\StripeClient([
                 "api_key" => env('STRIPE_SECRET')
@@ -65,16 +82,75 @@ class ShopController extends Controller
                     'line_items' => [$products],
                     'mode' => 'payment',
                     'automatic_tax' => ['enabled' => true],
-                    'success_url' => route('shop'),
+                    'success_url' => route('checkout-success').'?session_id={CHECKOUT_SESSION_ID}',
                     'cancel_url' => route('shop'),
+                    'metadata' => ['order_id' => $order->id],
                 ]);
-                
+              
                 return redirect()->away($checkout_session->url);
               
         
         
     }
+    
+    // If user stop the payment then comeback to pay later for the order
+    public function pay_later(int $id){
+        $order = Order::find($id);
+        $products = array();
+        foreach($order->carts as $cart){
+            //checkout product creation
+            array_push($products, [
+                'price_data' => [
+                'currency' => 'sar',
+                'product_data' => [
+                    'name' => $cart->prod_name,
+                ],
+                'unit_amount' => $cart->price*100,
+                ],
+                'quantity' => $cart->quantity,
+            ]);
+        }
+        $stripe = new \Stripe\StripeClient([
+            "api_key" => env('STRIPE_SECRET')
+          ]);
+          $checkout_session = $stripe->checkout->sessions->create
+            ([
 
+                'line_items' => [$products],
+                'mode' => 'payment',
+                'automatic_tax' => ['enabled' => true],
+                'success_url' => route('checkout-success').'?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('shop'),
+                'metadata' => ['order_id' => $order->id],
+            ]);
+          
+            return redirect()->away($checkout_session->url);
+
+    }
+
+    //  Checkout success
+    public function checkout_success(Request $request){
+        
+        $sessionId = $request->get('session_id');
+
+        if ($sessionId === null) {
+            return redirect('/shop')->with("msg","No session id");
+        }
+       
+        $stripe = new \Stripe\StripeClient([ "api_key" => env('STRIPE_SECRET')]);
+
+        $session = $stripe->checkout->sessions->retrieve($sessionId);
+
+        $orderId = $session['metadata']['order_id'] ?? null;
+ 
+        $order = Order::findOrFail($orderId);
+     
+        $order->update(['status' =>1]);
+        
+        dd($order->carts()->get());
+        
+        
+    }
     /**
      * Show the form for creating a new resource.
      */

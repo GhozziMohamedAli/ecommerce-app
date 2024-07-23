@@ -40,7 +40,7 @@
                       </span>
                     </td>
                     <td class="align-middle">
-                      <button onclick="edit_category('/category/',{{$category->id}})" class="btn  p-0 text-info font-weight-bold text-xs" data-bs-target="#EditModal" data-bs-toggle="modal" role="button" >
+                      <button onclick="edit_category('/admin/category/',{{$category->id}})" class="btn  p-0 text-info font-weight-bold text-xs" data-bs-target="#EditModal" data-bs-toggle="modal" role="button" >
                         <i class="material-icons">edit</i>
                       </button>
                       <button onclick="category_has_products({{$category->id}})" class="btn  p-0 text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
@@ -105,7 +105,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{url('/category')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{url('/admin/category')}}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="row">
             <div class="col-md-6">
@@ -170,7 +170,7 @@
       </div>
       <div class="modal-footer">
           <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button onclick="update_category('/category/')" type="button" class="btn bg-gradient-info">{{__('Save')}}</button>
+          <button onclick="update_category('/admin/category/')" type="button" class="btn bg-gradient-info">{{__('Save')}}</button>
       </div>
    
     </div>
